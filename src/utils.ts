@@ -146,9 +146,6 @@ export const getPRTitleComment = (storyTitle: string, prTitle: string): string =
     Just thought I'd let you know that your <em>PR title</em> and <em>story title</em> look <strong>quite different</strong>. PR titles
     that closely resemble the story title make it easier for reviewers to understand the context of the PR.
   </p>
-  <blockquote>
-    An easy-to-understand PR title a day makes the reviewer review away! 😛⚡️
-  </blockquote>
   <table>
     <tr>
       <th>Story Title</th>
@@ -355,7 +352,7 @@ export const getInvalidIssueStatusComment = (
   /** Threshold of additions allowed. */
   allowedStatuses: string
 ): string =>
-  `<p>:broken_heart: The detected issue is not in one of the allowed statuses :broken_heart: </p>    
+  `<p>:broken_heart: The detected Jira issue is not in correct state :broken_heart: </p>    
    <table>
      <tr>
         <th>Detected Status</th>
@@ -368,5 +365,5 @@ export const getInvalidIssueStatusComment = (
         <td>:heavy_check_mark:</td>
       </tr>
    </table>
-   <p>Please ensure your jira story is in one of the allowed statuses</p>
+   <p>Please ensure that the linked Jira story or bug has passed review app testing and is ready for merge & deployment.</p>
   `;
