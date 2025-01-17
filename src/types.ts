@@ -16,6 +16,13 @@ export interface PullRequestParams {
   [key: string]: unknown;
 }
 
+export interface MergeGroupParams {
+  base_ref: string;
+  head_commit: {
+    message: string;
+  };
+}
+
 export enum StoryType {
   Feature = 'feature',
   Bug = 'bug',
