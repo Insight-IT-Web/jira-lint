@@ -5,6 +5,7 @@ on: # rebuild any PRs and main branch changes (mirror few typescript-action conv
     branches:
       - master
       - 'releases/*'
+      - merge-queue-compatibility
 jobs:
   build-test:
     runs-on: ubuntu-16.04
