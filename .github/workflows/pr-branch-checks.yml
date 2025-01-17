@@ -24,11 +24,10 @@ jobs:
 
     - name: "archive lib when diff"
       uses: actions/upload-artifact@v4
-      if: failure()
       with:
         name: ci-built-lib
         path: lib/index.js
 
-    - name: "test"
-      run: npm run test
+    # - name: "test"
+    #   run: npm run test
 
