@@ -1,10 +1,8 @@
 import {
   getJIRAIssueKeys,
   getJIRAClient,
-  getInvalidIssueStatusComment,
   isIssueStatusValid,
 } from '../src/utils';
-import { HIDDEN_MARKER } from '../src/constants';
 import { JIRADetails } from '../src/types';
 
 jest.spyOn(console, 'log').mockImplementation(); // avoid actual console.log in test output
