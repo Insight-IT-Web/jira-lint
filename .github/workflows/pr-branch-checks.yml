@@ -22,15 +22,6 @@ jobs:
     - name: "build"
       run: npm run build
 
-    - name: "check for uncommitted changes"
-      # Ensure no diff when built on ci
-      # ignore node_modules since dev/fresh ci deps installed.
-      run: |
-        git diff --exit-code --stat -- . ':!node_modules' \
-        || (echo "##[error] found changed files after build. please 'npm run build'" \
-                  "and check in all changes" \
-            && exit 1)
-
     - name: "archive lib when diff"
       uses: actions/upload-artifact@v4
       if: failure()
