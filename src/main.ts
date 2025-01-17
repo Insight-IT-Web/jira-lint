@@ -79,23 +79,19 @@ async function run(): Promise<void> {
     console.log('pullRequest -> ', pullRequest);
     console.log('mergeGroup -> ', mergeGroup);
 
-    if (pullRequest && !mergeGroup) {
-      const {
-        base: { ref: baseBranch = ''},
-        head: { ref: headBranch = ''},
-        number: prNumber = 0,
-        body: prBody = '',
-        additions = 0,
-        title: commitMessage = '',
-      } = pullRequest as PullRequestParams;
-    }
+    const {
+      base: { ref: baseBranch = ''},
+      head: { ref: headBranch = ''},
+      number: prNumber = 0,
+      body: prBody = '',
+      additions = 0,
+      title = '',
+    } = pullRequest as PullRequestParams;
 
-    if (mergeGroup && !pullRequest) {
-      const {
-        base_ref: baseBranch = '',
-        head_commit: { message: commitMessage = ''},
-      } = mergeGroup as MergeGroupParams;
-    }
+    const {
+      base_ref: mergeBaseBranch = '',
+      head_commit: { message: commitMessage = ''},
+    } = mergeGroup as MergeGroupParams;
 
     // common fields for both issue and comment
     const commonPayload = {
@@ -128,7 +124,7 @@ async function run(): Promise<void> {
       process.exit(0);
     }
 
-    const issueKeys = headBranch !== 'undefined' ? getJIRAIssueKeys(headBranch) : getJIRAIssueKeys(commitMessage);
+    const issueKeys = headBranch ? getJIRAIssueKeys(headBranch) : getJIRAIssueKeys(commitMessage);
     if (!issueKeys.length) {
       const comment: IssuesCreateCommentParams = {
         ...commonPayload,
