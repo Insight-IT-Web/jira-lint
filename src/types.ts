@@ -17,7 +17,7 @@ export interface PullRequestParams {
 }
 
 export interface MergeGroupParams {
-  base_ref: string;
+  base_ref?: string;
   head_commit: {
     message: string;
   };
