@@ -55,8 +55,9 @@ async function run(): Promise<void> {
       process.exit(1);
     }
 
-    // use the last match (end of the branch name)
-    const issueKey = issueKeys[issueKeys.length - 1];
+    // TODO: future enhancement: if >1, iterate through to ensure ALL linked Jiras are in correct state 
+    // For now, always use the first match (there should only be one in the majority of cases)
+    const issueKey = issueKeys[0];
     console.log(`JIRA key -> ${issueKey}`);
 
     const { getTicketDetails } = getJIRAClient(JIRA_BASE_URL, JIRA_TOKEN);
@@ -64,12 +65,12 @@ async function run(): Promise<void> {
     if (details.key) {
 
       if (!isIssueStatusValid(VALIDATE_ISSUE_STATUS, ALLOWED_ISSUE_STATUSES.split(','), details)) {
-        core.setFailed('The found jira issue does is not in acceptable statuses');
+        core.setFailed('The found Jira issue is not in an acceptable statuses, so merging will be blocked.');
         process.exit(1);
       }
 
     } else {
-      core.setFailed('Invalid JIRA key. Please create a branch with a valid JIRA issue key.');
+      core.setFailed('Invalid JIRA key. Check the PR title and merge again if need be.');
       process.exit(1);
     }
   } catch (error) {
