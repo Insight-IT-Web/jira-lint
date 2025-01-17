@@ -18,7 +18,7 @@ export const DEFAULT_BRANCH_PATTERNS: RegExp[] = [/^master$/, /^production$/, /^
 /**
  * Regex to match JIRA issue keys.
  */
-export const JIRA_REGEX_MATCHER = /^(GNA|PRT-[0-9]{3,})/;
+export const JIRA_REGEX_MATCHER = /^((?:GNA|PRT)-[0-9]{3,})/;
 
 /**
  * Default total maximum number of additions after which jira-lint will discourage the PR as it is
