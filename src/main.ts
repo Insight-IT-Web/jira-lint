@@ -51,7 +51,7 @@ async function run(): Promise<void> {
 
     const issueKeys = getJIRAIssueKeys(commitMessage);
     if (!issueKeys.length) {
-      core.setFailed('JIRA issue id is missing in your branch.');
+      core.setFailed('JIRA issue key could not be parsed from your commit message (PR title).');
       process.exit(1);
     }
 
