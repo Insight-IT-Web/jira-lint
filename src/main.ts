@@ -66,6 +66,7 @@ async function run(): Promise<void> {
         repository,
         organization: { login: owner },
         pull_request: pullRequest,
+        merge_group: mergeGroup,
       },
     } = github.context;
 
@@ -75,14 +76,23 @@ async function run(): Promise<void> {
 
     const { name: repo } = repository;
 
-    const {
-      base: { ref: baseBranch },
-      head: { ref: headBranch },
-      number: prNumber = 0,
-      body: prBody = '',
-      additions = 0,
-      title = '',
-    } = pullRequest as PullRequestParams;
+    if (typeof pullRequest !== 'undefined') {
+      const {
+        base: { ref: baseBranch },
+        head: { ref: headBranch },
+        number: prNumber = 0,
+        body: prBody = '',
+        additions = 0,
+        title: commitMessage,
+      } = pullRequest as PullRequestParams;
+    }
+
+    if (typeof mergeGroup !== 'undefined') {
+      const {
+        base_ref: baseBranch
+        head_commit: { message: commitMessage },
+      } = pullRequest as PullRequestParams;
+    }
 
     // common fields for both issue and comment
     const commonPayload = {
@@ -95,26 +105,27 @@ async function run(): Promise<void> {
     // github client with given token
     const client: github.GitHub = new github.GitHub(GITHUB_TOKEN);
 
-    if (!headBranch && !baseBranch) {
-      const commentBody = 'jira-lint is unable to determine the head and base branch';
+    if (!headBranch && !baseBranch && !commitMessage) {
+      const commentBody = 'jira-lint is unable to determine the head, base branch and commit message, and so cannot determine the Jira key';
       const comment: IssuesCreateCommentParams = {
         ...commonPayload,
         body: commentBody,
       };
       await addComment(client, comment);
 
-      core.setFailed('Unable to get the head and base branch');
+      core.setFailed('Unable to determine the Jira key from the branch name or commit message');
       process.exit(1);
     }
 
     console.log('Base branch -> ', baseBranch);
     console.log('Head branch -> ', headBranch);
-
-    if (shouldSkipBranchLint(headBranch, BRANCH_IGNORE_PATTERN)) {
+    console.log('Commit message -> ', commitMessage);
+    
+    if (headBranch !== 'undefined' && shouldSkipBranchLint(headBranch, BRANCH_IGNORE_PATTERN)) {
       process.exit(0);
     }
 
-    const issueKeys = getJIRAIssueKeys(headBranch);
+    const issueKeys = headBranch !== 'undefined' ? getJIRAIssueKeys(headBranch) : getJIRAIssueKeys(commitMessage);
     if (!issueKeys.length) {
       const comment: IssuesCreateCommentParams = {
         ...commonPayload,
