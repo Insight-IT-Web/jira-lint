@@ -20,9 +20,7 @@ export const reverseString = (input: string): string => input.split('').reverse(
 
 /** Extract JIRA issue keys from a string. */
 export const getJIRAIssueKeys = (input: string): string[] => {
-  console.log(`JIRA key input -> ${input}`);
   const matches = input.toUpperCase().match(JIRA_REGEX_MATCHER);
-  console.log(`JIRA key matches -> ${matches}`);
   if (matches?.length) {
     return matches;
   } else return [];
