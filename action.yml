@@ -36,7 +36,7 @@ inputs:
 
 runs:
   using: 'node12'
-  main: 'lib/index.js'
+  main: 'src/main.ts'
 branding:
   icon: 'check-square'
   color: 'blue'
