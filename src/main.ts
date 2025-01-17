@@ -89,7 +89,7 @@ async function run(): Promise<void> {
 
     if (typeof mergeGroup !== 'undefined') {
       const {
-        base_ref: baseBranch
+        base_ref: baseBranch,
         head_commit: { message: commitMessage },
       } = pullRequest as PullRequestParams;
     }
