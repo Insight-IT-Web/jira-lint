@@ -89,7 +89,6 @@ async function run(): Promise<void> {
     } = pullRequest as PullRequestParams;
 
     const {
-      base_ref: mergeBaseBranch = '',
       head_commit: { message: commitMessage = ''},
     } = mergeGroup as MergeGroupParams;
 
