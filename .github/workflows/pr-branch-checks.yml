@@ -35,7 +35,7 @@ jobs:
             && exit 1)
 
     - name: "archive lib when diff"
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@latest
       if: failure()
       with:
         name: ci-built-lib
