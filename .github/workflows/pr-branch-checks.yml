@@ -8,7 +8,7 @@ on: # rebuild any PRs and main branch changes (mirror few typescript-action conv
       - merge-queue-compatibility
 jobs:
   build-test:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
