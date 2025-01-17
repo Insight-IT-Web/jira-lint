@@ -75,24 +75,22 @@ async function run(): Promise<void> {
     }
 
     const { name: repo } = repository;
+    
+    console.log('pullRequest -> ', pullRequest);
 
-    if (typeof pullRequest !== 'undefined') {
-      const {
-        base: { ref: baseBranch },
-        head: { ref: headBranch },
-        number: prNumber = 0,
-        body: prBody = '',
-        additions = 0,
-        title: commitMessage,
-      } = pullRequest as PullRequestParams;
-    }
+    const {
+      base: { ref: baseBranch = ''},
+      head: { ref: headBranch = ''},
+      number: prNumber = 0,
+      body: prBody = '',
+      additions = 0,
+      title: commitMessage = '',
+    } = pullRequest as PullRequestParams;
 
-    if (typeof mergeGroup !== 'undefined') {
-      const {
-        base_ref: baseBranch,
-        head_commit: { message: commitMessage },
-      } = pullRequest as PullRequestParams;
-    }
+    const {
+      base_ref: baseBranch = '',
+      head_commit: { message: commitMessage = ''},
+    } = pullRequest as PullRequestParams;
 
     // common fields for both issue and comment
     const commonPayload = {
