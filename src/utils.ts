@@ -22,12 +22,9 @@ export const reverseString = (input: string): string => input.split('').reverse(
 export const getJIRAIssueKeys = (input: string): string[] => {
   console.log(`JIRA key input -> ${input}`);
   const matches1 = input.toUpperCase().match(JIRA_REGEX_MATCHER);
-  const matches2 = reverseString(input).toUpperCase().match(JIRA_REGEX_MATCHER);
-  console.log(`JIRA key matches1 -> ${matches1}`);
-  console.log(`JIRA key matches2 -> ${matches2}`);
-  if (matches1?.length) {
-    console.log(`JIRA key matches1 -> ${matches1.map(reverseString).reverse()}`);
-    return matches1.map(reverseString).reverse();
+  console.log(`JIRA key matches -> ${matches}`);
+  if (matches?.length) {
+    return matches;
   } else return [];
 };
 
