@@ -5,7 +5,7 @@ on: # rebuild any PRs and main branch changes (mirror few typescript-action conv
     branches:
       - master
       - 'releases/*'
-      - 'handle-distinct-jira-projects'
+      
 jobs:
   build-test:
     runs-on: ubuntu-latest
