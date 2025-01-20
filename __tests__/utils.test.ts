@@ -1,5 +1,4 @@
 import {
-  getJIRAIssueKeys,
   getJIRAClient,
   isIssueStatusValid,
 } from '../src/utils';
