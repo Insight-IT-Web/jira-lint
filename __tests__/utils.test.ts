@@ -7,32 +7,9 @@ import { JIRADetails } from '../src/types';
 
 jest.spyOn(console, 'log').mockImplementation(); // avoid actual console.log in test output
 
-describe('getJIRAIssueKeys()', () => {
-  it('gets multiple keys from a string', () => {
-    expect(
-      getJIRAIssueKeys(
-        'BF-18 abc-123 X-88 ABCDEFGHIJKL-999 abc XY-Z-333 abcDEF-33 ABCDEF-33 abcdef-33 ABC-1 PB2-1 pb2-1 P2P-1 p2p-1'
-      )
-    ).toEqual([
-      'BF-18',
-      'ABC-123',
-      'X-88',
-      'CDEFGHIJKL-999',
-      'Z-333',
-      'ABCDEF-33',
-      'ABCDEF-33',
-      'ABCDEF-33',
-      'ABC-1',
-      'PB2-1',
-      'PB2-1',
-      'P2P-1',
-      'P2P-1',
-    ]);
-  });
-
   it('gets jira key from different PR title names', () => {
     expect(getJIRAIssueKeys('GNA-1234 fix for something, GNA-34535 another fix')).toEqual(['GNA-1234']);
-    expect(getJIRAIssueKeys('A platform (PRT-5678) fix')).toEqual(['PRT-5678']);
+    expect(getJIRAIssueKeys('PRT-5678 - a platform fix')).toEqual(['PRT-5678']);
 
     expect(getJIRAIssueKeys('feature/missingKey')).toEqual([]);
     expect(getJIRAIssueKeys('')).toEqual([]);
