@@ -15,8 +15,8 @@ inputs:
     description: 'A regex to ignore running on certain branches, like production etc.'
     required: false
     default: ''
-  skip-jira-projects:
-    description: 'A regex indicating Jira project keys to skip validation for'
+  skip-jira-project:
+    description: 'A Jira project key to skip validation for (currently only accepts a single exact project key)'
     required: false
     default: ''
   validate_issue_status:
