@@ -30,9 +30,9 @@ describe('getJIRAIssueKeys()', () => {
     ]);
   });
 
-  it('gets jira key from different branch names', () => {
-    expect(getJIRAIssueKeys('fix/login-protocol-GNA-1234')).toEqual(['GNA-1234']);
-    expect(getJIRAIssueKeys('fix/login-protocol-PRT-5678')).toEqual(['PRT-5678']);
+  it('gets jira key from different PR title names', () => {
+    expect(getJIRAIssueKeys('GNA-1234 fix for something, GNA-34535 another fix')).toEqual(['GNA-1234']);
+    expect(getJIRAIssueKeys('A platform (PRT-5678) fix')).toEqual(['PRT-5678']);
 
     expect(getJIRAIssueKeys('feature/missingKey')).toEqual([]);
     expect(getJIRAIssueKeys('')).toEqual([]);
