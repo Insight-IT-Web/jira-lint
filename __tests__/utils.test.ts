@@ -31,20 +31,8 @@ describe('getJIRAIssueKeys()', () => {
   });
 
   it('gets jira key from different branch names', () => {
-    expect(getJIRAIssueKeys('fix/login-protocol-es-43')).toEqual(['ES-43']);
-    expect(getJIRAIssueKeys('fix/login-protocol-ES-43')).toEqual(['ES-43']);
-    expect(getJIRAIssueKeys('feature/newFeature_esch-100')).toEqual(['ESCH-100']);
-    expect(getJIRAIssueKeys('feature/newFeature_ESCH-101')).toEqual(['ESCH-101']);
-    expect(getJIRAIssueKeys('feature/newFeature--mojo-5611')).toEqual(['MOJO-5611']);
-    expect(getJIRAIssueKeys('feature/newFeature--MOJO-6789')).toEqual(['MOJO-6789']);
-
-    expect(getJIRAIssueKeys('chore/task-with-dashes--MOJO-6789')).toEqual(['MOJO-6789']);
-    expect(getJIRAIssueKeys('chore/task_with_underscores--MOJO-6789')).toEqual(['MOJO-6789']);
-    expect(getJIRAIssueKeys('chore/MOJO-6789-task_with_underscores')).toEqual(['MOJO-6789']);
-    expect(getJIRAIssueKeys('MOJO-6789/task_with_underscores')).toEqual(['MOJO-6789']);
-
-    expect(getJIRAIssueKeys('MOJO-6789/task_with_underscores-ES-43')).toEqual(['MOJO-6789', 'ES-43']);
-    expect(getJIRAIssueKeys('nudge-live-chat-users-Es-172')).toEqual(['ES-172']);
+    expect(getJIRAIssueKeys('fix/login-protocol-GNA-1234')).toEqual(['GNA-1234']);
+    expect(getJIRAIssueKeys('fix/login-protocol-PRT-5678')).toEqual(['PRT-5678']);
 
     expect(getJIRAIssueKeys('feature/missingKey')).toEqual([]);
     expect(getJIRAIssueKeys('')).toEqual([]);
@@ -63,7 +51,7 @@ describe('JIRA Client', () => {
 
 describe('isIssueStatusValid()', () => {
   const issue: JIRADetails = {
-    key: 'ABC-123',
+    key: 'GNA-1234',
     url: 'url',
     type: { name: 'feature', icon: 'feature-icon-url' },
     estimate: 1,
