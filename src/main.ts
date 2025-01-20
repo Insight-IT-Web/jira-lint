@@ -65,10 +65,11 @@ async function run(): Promise<void> {
 
     const { getTicketDetails } = getJIRAClient(JIRA_BASE_URL, JIRA_TOKEN);
     const details: JIRADetails = await getTicketDetails(issueKey);
+    console.log(`JIRA project -> ${details.project.key}`);
     
-    if (details.key && details.project.key && (details.project.key != SKIP_JIRA_PROJECT)) {
+    if (details.key && details.project.key) {
 
-      if (!isIssueStatusValid(VALIDATE_ISSUE_STATUS, ALLOWED_ISSUE_STATUSES.split(','), details)) {
+      if ((details.project.key != SKIP_JIRA_PROJECT) && !isIssueStatusValid(VALIDATE_ISSUE_STATUS, ALLOWED_ISSUE_STATUSES.split(','), details)) {
         core.setFailed('The found Jira issue is not in an acceptable statuses, so merging will be blocked.');
         process.exit(1);
       }
