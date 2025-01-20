@@ -5,12 +5,12 @@ import {
 } from '../src/utils';
 import { JIRADetails } from '../src/types';
 
-jest.spyOn(console, 'log').mockImplementation(); // avoid actual console.log in test output
+// jest.spyOn(console, 'log').mockImplementation(); // avoid actual console.log in test output
 
 describe('Jira issue key extractor', () => {
   it('gets jira key from different PR title names', () => {
-    expect(getJIRAIssueKeys('GNA-1234 fix for something, GNA-34535 another fix')).toEqual(['GNA-1234']);
     expect(getJIRAIssueKeys('PRT-5678 - a platform fix')).toEqual(['PRT-5678']);
+    expect(getJIRAIssueKeys('GNA-1234 fix for something, GNA-34535 another fix')).toEqual(['GNA-1234']);
 
     expect(getJIRAIssueKeys('feature/missingKey')).toEqual([]);
     expect(getJIRAIssueKeys('')).toEqual([]);
