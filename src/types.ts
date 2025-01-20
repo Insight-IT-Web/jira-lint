@@ -106,6 +106,7 @@ export interface JIRADetails {
 export interface JIRALintActionInputs {
   JIRA_TOKEN: string;
   JIRA_BASE_URL: string;
+  SKIP_JIRA_PROJECT: string;
   VALIDATE_ISSUE_STATUS: boolean;
   ALLOWED_ISSUE_STATUSES: string;
 }
