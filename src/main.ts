@@ -11,12 +11,14 @@ import { MergeGroupParams, JIRADetails, JIRALintActionInputs } from './types';
 const getInputs = (): JIRALintActionInputs => {
   const JIRA_TOKEN: string = core.getInput('jira-token', { required: true });
   const JIRA_BASE_URL: string = core.getInput('jira-base-url', { required: true });
+  const SKIP_JIRA_PROJECT: string = core.getInput('skip-jira-project');
   const VALIDATE_ISSUE_STATUS: boolean = core.getInput('validate_issue_status', { required: false }) === 'true';
   const ALLOWED_ISSUE_STATUSES: string = core.getInput('allowed_issue_statuses');
 
   return {
     JIRA_TOKEN,
     JIRA_BASE_URL: JIRA_BASE_URL.endsWith('/') ? JIRA_BASE_URL.replace(/\/$/, '') : JIRA_BASE_URL,
+    SKIP_JIRA_PROJECT,
     VALIDATE_ISSUE_STATUS,
     ALLOWED_ISSUE_STATUSES,
   };
@@ -27,6 +29,7 @@ async function run(): Promise<void> {
     const {
       JIRA_TOKEN,
       JIRA_BASE_URL,
+      SKIP_JIRA_PROJECT,
       VALIDATE_ISSUE_STATUS,
       ALLOWED_ISSUE_STATUSES,
     } = getInputs();
@@ -62,7 +65,8 @@ async function run(): Promise<void> {
 
     const { getTicketDetails } = getJIRAClient(JIRA_BASE_URL, JIRA_TOKEN);
     const details: JIRADetails = await getTicketDetails(issueKey);
-    if (details.key) {
+    
+    if (details.key && details.project.key && (details.project.key != SKIP_JIRA_PROJECT)) {
 
       if (!isIssueStatusValid(VALIDATE_ISSUE_STATUS, ALLOWED_ISSUE_STATUSES.split(','), details)) {
         core.setFailed('The found Jira issue is not in an acceptable statuses, so merging will be blocked.');
